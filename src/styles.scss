@@ -1,0 +1,47 @@
+/* You can add global styles to this file, and also import other style files */
+@use "~@angular/material/theming" as material;
+@use './app/banner/banner.component.scss-theme.scss' as banner;
+@use 'sass:map';
+@include material.mat-core();
+// @use "sass:map";
+// @use '@angular/material' as mat;
+// @import 'sass:map';
+
+$workshop-primary: material.mat-palette(material.$mat-cyan, 500, 200, 800);
+$workshop-accent: material.mat-palette(material.$mat-pink, A200, A100, A400);
+
+// Extra color
+$workshop-success: material.mat-palette(material.$mat-green);
+$workshop-info: material.mat-palette(material.$mat-blue);
+
+$workshop-theme: material.mat-light-theme(
+  (
+    color: (
+      primary: $workshop-primary,
+      accent: $workshop-accent,
+    ),
+  )
+);
+
+$workshop-theme: map.deep-merge($workshop-theme, (
+  success: $workshop-success,
+  info: $workshop-info,
+  color: (
+    success: $workshop-success,
+    info: $workshop-info,
+  )
+));
+
+// @debug $workshop-theme;
+
+@include material.angular-material-theme($workshop-theme);
+@include banner.app-banner-theme($workshop-theme);
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

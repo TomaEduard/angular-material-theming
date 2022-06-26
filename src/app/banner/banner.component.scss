@@ -1,0 +1,29 @@
+:host {
+  // .app-banner {
+    display: block;
+  
+    padding: 5px 15px;
+    box-sizing: border-box;
+    border-radius: 7px;
+  
+    .heading {
+      font-size: 24px;
+    }
+    
+    .message {
+      font-size: 16px;
+    }
+  // }
+}
+
+::ng-deep {
+  .app-banner-info {
+    border: 5px solid #8acaff !important;
+  }
+  .app-banner-warn {
+    border: 5px solid #ffb3ba !important;
+  }
+  .app-banner-success {
+    border: 5px solid #adeeaf !important;
+  }
+}
