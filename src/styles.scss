@@ -1,46 +1,42 @@
-/* You can add global styles to this file, and also import other style files */
-@use "~@angular/material/theming" as material;
-@use './app/banner/banner.component.scss-theme.scss' as banner;
-@use 'sass:map';
-@include material.mat-core();
-// @use "sass:map";
-// @use '@angular/material' as mat;
-// @import 'sass:map';
+@use '@angular/material' as mat;
+@include mat.core();
 
-$workshop-primary: material.mat-palette(material.$mat-cyan, 500, 200, 800);
-$workshop-accent: material.mat-palette(material.$mat-pink, A200, A100, A400);
-
-// Extra color
-$workshop-success: material.mat-palette(material.$mat-green);
-$workshop-info: material.mat-palette(material.$mat-blue);
-
-$workshop-theme: material.mat-light-theme(
-  (
-    color: (
-      primary: $workshop-primary,
-      accent: $workshop-accent,
-    ),
-  )
-);
-
-$workshop-theme: map.deep-merge($workshop-theme, (
-  success: $workshop-success,
-  info: $workshop-info,
-  color: (
-    success: $workshop-success,
-    info: $workshop-info,
-  )
+$my-primary: mat.define-palette(mat.$indigo-palette, 500);
+$my-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+$my-warn: mat.define-palette(mat.$red-palette);
+$my-light-theme: mat.define-light-theme((
+ color: (
+   primary: $my-primary,
+   accent: $my-accent,
+   warn: $my-warn
+ )
 ));
+@include mat.all-component-themes($my-light-theme);
+.light_theme {
+  @include  mat.all-component-themes($my-light-theme);
+}
 
-// @debug $workshop-theme;
+$my-primary: mat.define-palette(mat.$blue-gray-palette, 500);
+$my-accent: mat.define-palette(mat.$amber-palette, A200, A100, A400);
+$my-warn: mat.define-palette(mat.$deep-orange-palette);
+$my-dark-theme: mat.define-dark-theme((
+ color: (
+   primary: $my-primary,
+   accent: $my-accent,
+   warn: $my-warn
+ )
+));
+.dark_theme {
+  // @include  angular-material-theme($my-dark-theme); < v14
+  @include  mat.all-component-themes($my-dark-theme);
+}
 
-@include material.angular-material-theme($workshop-theme);
-@include banner.app-banner-theme($workshop-theme);
-
+// 
 html,
 body {
   height: 100%;
 }
+
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;

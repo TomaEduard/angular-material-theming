@@ -1,26 +1,43 @@
-::ng-deep {
-  .mat-button-wrapper {
-    // background-color: green;
-  }
-  
-  .example-spacer {
-    flex: 1 1 auto;
-  }
-  
+.content {
+  // min-height: calc(100vh-64px);
+  // height: calc(100% - 64px);
+
+  // padding: 26px;
+  // min-height: 100vh;
+}
+
+.content {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+
+  min-height: calc(100vh - 64px);
+}
+@media (min-width: 768px) {
   .content {
-    padding: 20px;
-    box-sizing: border-box;
+    // width: 750px;
+    padding-right: 35px;
+    padding-left: 35px;
+    margin-right: auto;
+    margin-left: auto;
   }
-  
-  .sort-area {
-    margin-bottom: 20px;
+}
+@media (min-width: 992px) {
+  .content {
+    // width: 970px;
+    padding-right: 55px;
+    padding-left: 55px;
+    margin-right: auto;
+    margin-left: auto;
   }
-  
-  .card {
-    max-width: 220px;
-  }
-  
-  .drop-down {
-    margin-right: 15px;
+}
+@media (min-width: 1200px) {
+  .content {
+    // width: 1170px;
+    padding-right: 75px;
+    padding-left: 75px;
+    margin-right: auto;
+    margin-left: auto;
   }
 }

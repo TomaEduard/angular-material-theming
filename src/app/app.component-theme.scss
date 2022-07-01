@@ -1,0 +1,12 @@
+@use "~@angular/material/theming" as material;
+
+@mixin app-root-theme($theme) {
+  $theme-colors: material.mat-get-color-config($theme);
+  $backgrounds: mat-get($theme-colors, background);
+  
+  app-root {
+    .content {
+      background-color: material.mat-color($backgrounds, background);
+    }
+  }
+}

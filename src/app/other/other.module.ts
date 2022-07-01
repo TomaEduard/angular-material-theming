@@ -3,8 +3,6 @@ import { NgModule } from '@angular/core';
 import { SharedMaterialModule } from './../shared-material.module';
 import { OtherComponent } from './other.component';
 
-
-
 @NgModule({
   declarations: [OtherComponent],
   imports: [
@@ -16,3 +14,4 @@ import { OtherComponent } from './other.component';
   ]
 })
 export class OtherModule { }
+
