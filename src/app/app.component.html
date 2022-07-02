@@ -5,14 +5,36 @@
 >
   <p>Angular Material theming  v14</p>
 
-  <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
-    <mat-icon class="mr-8">brightness_5</mat-icon>
-    <mat-slide-toggle
-      [formControl]="toggleControl"
-      class="mr-8"
-    ></mat-slide-toggle>
-    <mat-icon>bedtime</mat-icon>
-    {{ toggleControl.value | json }}
+  <div
+    fxLayout="row"
+    fxLayoutAlign="start center"
+    fxLayoutGap="20px"
+  >
+
+    <button
+      mat-icon-button
+      [matMenuTriggerFor]="menu"
+    >
+      <i class="material-icons">format_color_fill</i>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="changeTheme('light-theme')">Light</button>
+      <button mat-menu-item (click)="changeTheme('dark-theme')">Dark</button>
+      <button mat-menu-item (click)="changeTheme('deep-purple-and-amber')">Deep Purple & Amber</button>
+      <button mat-menu-item (click)="changeTheme('deep-purple-and-amber-dark')">Purple & Amber Dark</button>
+      <button mat-menu-item (click)="changeTheme('purple-green')">Purple Green</button>
+      <button mat-menu-item (click)="changeTheme('purple-green-dark')">Purple Green Dark</button>
+    </mat-menu>
+
+    <!-- <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
+      <mat-icon class="mr-8">brightness_5</mat-icon>
+      <mat-slide-toggle
+        [formControl]="toggleControl"
+        class="mr-8"
+      ></mat-slide-toggle>
+      <mat-icon>bedtime</mat-icon>
+      {{ toggleControl.value | json }}
+    </div> -->
   </div>
 </mat-toolbar>
 
@@ -28,12 +50,11 @@
         <h1>Buttons</h1>
     
         <div fxLayout="row" fxLayoutGap="16px">
+          <button mat-button>Basic</button>
           <button mat-raised-button color="primary" (click)="showDialog()">
-            Open Dialog
+            primary (Open Dialog)
           </button>
-    
           <button mat-raised-button color="accent">Accent button</button>
-    
           <button mat-raised-button color="warn">Warn button</button>
         </div>
     
@@ -48,8 +69,17 @@
         <br /><br />
     
         <h1>Checkbox</h1>
-    
-        <mat-checkbox>Check this box!</mat-checkbox>
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
+          <mat-checkbox>Basic</mat-checkbox>
+          <mat-checkbox color="primary">Primary</mat-checkbox>
+          <mat-checkbox color="accent">Accent</mat-checkbox>
+          <mat-checkbox color="warn">Warn</mat-checkbox>
+        </div>
+
+        <br /><br />
+
+        <h1>Radio</h1>
+        <p>TODO</p>
 
         <br /><br />
         <h1>Expansion panel</h1>
@@ -102,9 +132,8 @@
     <mat-form-field appearance="fill" floatLabel="auto">
       <mat-label>Color</mat-label>
       <mat-select [(value)]="type">
-        <mat-option [value]="option" *ngFor="let option of typeList">{{
-          option
-        }}</mat-option>
+        <mat-option [value]="option" *ngFor="let option of typeList">
+          {{ option }}</mat-option>
       </mat-select>
     </mat-form-field>
     <p>You selected: {{ type }}</p>

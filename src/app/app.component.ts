@@ -10,8 +10,13 @@ interface Food {
 }
 
 export enum Theme {
-  light = 'light_theme',
-  dark = 'dark_theme'
+  'light-theme',
+  'dark-theme',
+  'deep-purple-and-amber',
+  'deep-purple-and-amber-dark',
+  'purple-green',
+  'purple-green-dark',
+
 }
 
 @Component({
@@ -22,7 +27,7 @@ export enum Theme {
 export class AppComponent {
   
   @HostBinding('class')
-  className: Theme | null = Theme.light;
+  className: string | null = Theme[0];
   
   // toolbar
   toggleControl = new FormControl(false);
@@ -43,28 +48,47 @@ export class AppComponent {
   ) { }
 
   ngOnInit(): void {
-    const darkClassName = Theme.dark;
     const classes = this.overlay.getContainerElement().classList;
 
-    // Se executa o singura data la nivel de root pentru a seta valoarea themei
+    // Se executa o singura data la nivel de root pentru a seta valoarea initiala a themei
     var localstorage_cookbook_theme = window.localStorage.getItem('cookbook-theme');
-    if (localstorage_cookbook_theme) {
-      classes.add(darkClassName);
-      this.className = darkClassName;
-      this.toggleControl.setValue(true);
+
+    const indexOfS = Object.values(Theme).indexOf(localstorage_cookbook_theme as unknown as Theme);
+    console.log('indexOfS', indexOfS);
+
+    if (indexOfS && indexOfS > 0) {
+      classes.add(Theme[indexOfS]);
+      this.className = Theme[indexOfS];
+      if (this.className.endsWith('dark')) {
+        this.toggleControl.setValue(true);
+      }
     }
 
-    this.toggleControl.valueChanges.subscribe((darkMode) => {
-      this.className = darkMode ? darkClassName : null;
+    // this.toggleControl.valueChanges.subscribe((darkMode) => {
+    //   this.className = darkMode ? Theme[1] : null;
+    //   console.log('darkMode', darkMode);
 
-      if (darkMode) {
-        classes.add(darkClassName);
-        window.localStorage.setItem('cookbook-theme', darkClassName);
-      } else {
-        window.localStorage.removeItem('cookbook-theme');
-        classes.remove(darkClassName);
-      }
-    });
+    //   if (darkMode) {
+    //     classes.add(Theme[0]);
+    //     window.localStorage.setItem('cookbook-theme', Theme[0]);
+    //     this.toggleControl.setValue(true);
+    //   } else {
+    //     window.localStorage.removeItem('cookbook-theme');
+    //     classes.remove(Theme[1]);
+    //     this.toggleControl.setValue(false);
+    //   }
+    // });
+  }
+
+  // 
+  // deep-purple-and-amber
+  changeTheme(theme: string) {
+    const indexOfS = Object.values(Theme).indexOf(theme as unknown as Theme);
+
+		const classList = this.overlay.getContainerElement().classList;
+    window.localStorage.setItem('cookbook-theme', theme);
+    classList.add(theme);
+    this.className = Theme[indexOfS];
   }
 
   showDialog(): void {
