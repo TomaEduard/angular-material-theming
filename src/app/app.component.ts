@@ -53,14 +53,14 @@ export class AppComponent {
       localstorage_cookbook_theme = 'indigo-palette';
     }
 
-
-    console.log('localstorage_cookbook_theme', localstorage_cookbook_theme);
-    // const applyTheme = localstorage_cookbook_theme + suffix;
     if (localstorage_cookbook_theme && localstorage_cookbook_theme.endsWith('-dark')) {
       this.darkTheme = true;
     }
 
     this.className = localstorage_cookbook_theme;
+
+    const classList = this.overlay.getContainerElement().classList;
+    classList.add(localstorage_cookbook_theme);
   }
 
   changeTheme(theme: string) {
@@ -70,10 +70,15 @@ export class AppComponent {
     if (this.darkTheme) {
       suffix = '-dark';
     }
+
+    var localstorage_cookbook_theme = window.localStorage.getItem('cookbook-theme');
+    if (!localstorage_cookbook_theme) {
+      localstorage_cookbook_theme = 'indigo-palette';
+    }
     const applyTheme = theme + suffix;
-    
+    classList.replace(localstorage_cookbook_theme, applyTheme);
     window.localStorage.setItem('cookbook-theme', applyTheme);
-    classList.add(applyTheme);
+
     this.className = applyTheme;
   }
 
@@ -96,7 +101,7 @@ export class AppComponent {
       const applyTheme = localstorage_cookbook_theme + suffix;
       const classList = this.overlay.getContainerElement().classList;
       window.localStorage.setItem('cookbook-theme', applyTheme);
-      classList.add(applyTheme);
+      classList.replace(localstorage_cookbook_theme, applyTheme);
       this.className = applyTheme;
 
       this.darkTheme = true;

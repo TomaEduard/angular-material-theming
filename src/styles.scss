@@ -19,7 +19,7 @@ $indigo-palette: mat.define-light-theme((
    warn: $warn-indigo-palette
   )
 ));
-@include mat.all-component-themes($indigo-palette);
+// @include mat.all-component-themes($indigo-palette);
 .indigo-palette {
   @include  mat.all-component-themes($indigo-palette);
 }
