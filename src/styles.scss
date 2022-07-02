@@ -1,34 +1,36 @@
 @use '@angular/material' as mat;
 @include mat.core();
 
-$my-primary: mat.define-palette(mat.$indigo-palette, 500);
-$my-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
-$my-warn: mat.define-palette(mat.$red-palette);
-$my-light-theme: mat.define-light-theme((
+$suffix: -dark;
+
+$primary: mat.define-palette(mat.$indigo-palette, 500);
+$accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+$warn: mat.define-palette(mat.$red-palette);
+$theme: mat.define-light-theme((
   color: (
-   primary: $my-primary,
-   accent: $my-accent,
-   warn: $my-warn
+   primary: $primary,
+   accent: $accent,
+   warn: $warn
   )
 ));
-@include mat.all-component-themes($my-light-theme);
-.light-theme {
-  @include  mat.all-component-themes($my-light-theme);
+@include mat.all-component-themes($theme);
+.theme {
+  @include  mat.all-component-themes($theme);
 }
 
-$my-primary: mat.define-palette(mat.$blue-gray-palette, 500);
-$my-accent: mat.define-palette(mat.$amber-palette, A200, A100, A400);
-$my-warn: mat.define-palette(mat.$deep-orange-palette);
-$my-dark-theme: mat.define-dark-theme((
+$primary-dark: mat.define-palette(mat.$blue-gray-palette, 500);
+$accent-dark: mat.define-palette(mat.$amber-palette, A200, A100, A400);
+$warn-dark: mat.define-palette(mat.$deep-orange-palette);
+$theme-dark: mat.define-dark-theme((
   color: (
-   primary: $my-primary,
-   accent: $my-accent,
-   warn: $my-warn
+   primary: $primary-dark,
+   accent: $accent-dark,
+   warn: $warn-dark
   )
 ));
-.dark-theme {
+.theme#{$suffix} {
   // @include  angular-material-theme($my-dark-theme); < v14
-  @include  mat.all-component-themes($my-dark-theme);
+  @include  mat.all-component-themes($theme-dark);
 }
 
 // deep-purple-and-amber
@@ -53,7 +55,7 @@ $deep-purple-and-amber-dark: mat.define-dark-theme((
     warn: $warn-deep-purple-and-amber
   )
 ));
-.deep-purple-and-amber-dark {
+.deep-purple-and-amber#{$suffix}{
   @include  mat.all-component-themes($deep-purple-and-amber-dark);
 }
 
@@ -77,7 +79,7 @@ $deep-purple-green-dark: mat.define-dark-theme((
     warn: $warn-purple-green
   )
 ));
-.purple-green-dark {
+.purple-green#{$suffix} {
   @include  mat.all-component-themes($deep-purple-green-dark);
 }
 

@@ -3,38 +3,48 @@
   fxLayout="row"
   fxLayoutAlign="space-between center"
 >
-  <p>Angular Material theming  v14</p>
+  <p>Angular Material theming v14</p>
 
-  <div
-    fxLayout="row"
-    fxLayoutAlign="start center"
-    fxLayoutGap="20px"
-  >
-
-    <button
-      mat-icon-button
-      [matMenuTriggerFor]="menu"
-    >
+  <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
+    <button mat-icon-button [matMenuTriggerFor]="menu">
       <i class="material-icons">format_color_fill</i>
     </button>
     <mat-menu #menu="matMenu">
-      <button mat-menu-item (click)="changeTheme('light-theme')">Light</button>
-      <button mat-menu-item (click)="changeTheme('dark-theme')">Dark</button>
-      <button mat-menu-item (click)="changeTheme('deep-purple-and-amber')">Deep Purple & Amber</button>
-      <button mat-menu-item (click)="changeTheme('deep-purple-and-amber-dark')">Purple & Amber Dark</button>
-      <button mat-menu-item (click)="changeTheme('purple-green')">Purple Green</button>
-      <button mat-menu-item (click)="changeTheme('purple-green-dark')">Purple Green Dark</button>
+      <button
+        mat-menu-item
+        (click)="changeTheme('theme')"
+        [disabled]="disabledTheme('theme')"
+      >
+        Light
+      </button>
+      <button
+        mat-menu-item
+        (click)="changeTheme('deep-purple-and-amber')"
+        [disabled]="disabledTheme('deep-purple-and-amber')"
+      >
+        Deep Purple & Amber
+      </button>
+      <button
+        mat-menu-item
+        (click)="changeTheme('purple-green')"
+        [disabled]="disabledTheme('purple-green')"
+      >
+        Purple Green
+      </button>
     </mat-menu>
 
-    <!-- <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
-      <mat-icon class="mr-8">brightness_5</mat-icon>
+    <div
+      style="border-left: 1px solid rgba(210, 218, 255, 0.719); height: 35px"
+    ></div>
+
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
+      <mat-icon>brightness_5</mat-icon>
       <mat-slide-toggle
-        [formControl]="toggleControl"
-        class="mr-8"
+        [checked]="darkTheme"
+        (change)="setDarkTheme($event.checked)"
       ></mat-slide-toggle>
       <mat-icon>bedtime</mat-icon>
-      {{ toggleControl.value | json }}
-    </div> -->
+    </div>
   </div>
 </mat-toolbar>
 
@@ -48,7 +58,7 @@
     >
       <div fxFlex="50">
         <h1>Buttons</h1>
-    
+
         <div fxLayout="row" fxLayoutGap="16px">
           <button mat-button>Basic</button>
           <button mat-raised-button color="primary" (click)="showDialog()">
@@ -57,17 +67,17 @@
           <button mat-raised-button color="accent">Accent button</button>
           <button mat-raised-button color="warn">Warn button</button>
         </div>
-    
+
         <br /><br />
-    
+
         <h1>Input</h1>
-    
+
         <mat-form-field>
           <input matInput placeholder="Enter some information" />
         </mat-form-field>
-    
+
         <br /><br />
-    
+
         <h1>Checkbox</h1>
         <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
           <mat-checkbox>Basic</mat-checkbox>
@@ -92,10 +102,10 @@
           </mat-expansion-panel-header>
           <p>This is the primary content of the panel.</p>
         </mat-expansion-panel>
-    
+
         <br /><br />
       </div>
-    
+
       <div fxFlex="50">
         <div fxLayout="row" fxLayoutAlign="center center">
           <mat-card class="example-card" style="max-width: 400px">
@@ -111,10 +121,10 @@
             />
             <mat-card-content>
               <p>
-                The Shiba Inu is the smallest of the six original and distinct spitz
-                breeds of dog from Japan. A small, agile dog that copes very well
-                with mountainous terrain, the Shiba Inu was originally bred for
-                hunting.
+                The Shiba Inu is the smallest of the six original and distinct
+                spitz breeds of dog from Japan. A small, agile dog that copes
+                very well with mountainous terrain, the Shiba Inu was originally
+                bred for hunting.
               </p>
             </mat-card-content>
             <mat-card-actions>
@@ -126,29 +136,25 @@
       </div>
     </div>
 
-    <br>
-    <br>
+    <br />
+    <br />
     <h1>Select</h1>
     <mat-form-field appearance="fill" floatLabel="auto">
       <mat-label>Color</mat-label>
       <mat-select [(value)]="type">
         <mat-option [value]="option" *ngFor="let option of typeList">
-          {{ option }}</mat-option>
+          {{ option }}</mat-option
+        >
       </mat-select>
     </mat-form-field>
     <p>You selected: {{ type }}</p>
-    <br>
+    <br />
 
-    <app-banner
-      [type]="type"
-      [message]="'This component will get own theme'"
-    >
+    <app-banner [type]="type" [message]="'This component will get own theme'">
     </app-banner>
 
-    <br>
-    <br>
-    <br>
-
+    <br />
+    <br />
+    <br />
   </div>
-  
 </main>
