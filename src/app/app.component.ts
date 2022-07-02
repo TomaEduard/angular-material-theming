@@ -10,9 +10,10 @@ interface Food {
 }
 
 export enum Theme {
-  'theme',
+  'indigo-palette',
   'deep-purple-and-amber',
   'purple-green',
+  'pink-bluegrey',
 }
 
 @Component({
@@ -45,16 +46,21 @@ export class AppComponent {
   ) { }
 
   ngOnInit(): void {
-    const classes = this.overlay.getContainerElement().classList;
-
     // It is executed only once at root level to set the initial value of the theme
     var localstorage_cookbook_theme = window.localStorage.getItem('cookbook-theme');
-    this.className = localstorage_cookbook_theme;
-    console.log('localstorage_cookbook_theme', localstorage_cookbook_theme);
+    // set default theme
+    if (!localstorage_cookbook_theme) {
+      localstorage_cookbook_theme = 'indigo-palette';
+    }
 
+
+    console.log('localstorage_cookbook_theme', localstorage_cookbook_theme);
+    // const applyTheme = localstorage_cookbook_theme + suffix;
     if (localstorage_cookbook_theme && localstorage_cookbook_theme.endsWith('-dark')) {
       this.darkTheme = true;
     }
+
+    this.className = localstorage_cookbook_theme;
   }
 
   changeTheme(theme: string) {
@@ -81,7 +87,7 @@ export class AppComponent {
     var localstorage_cookbook_theme = window.localStorage.getItem('cookbook-theme');
     // set default theme
     if (!localstorage_cookbook_theme) {
-      localstorage_cookbook_theme = 'theme';
+      localstorage_cookbook_theme = 'indigo-palette';
     }
 
     // if toggle is true, we'll add '-dark' suffix on current theme
@@ -98,7 +104,7 @@ export class AppComponent {
       const applyTheme = localstorage_cookbook_theme.slice(0, -5);
       const classList = this.overlay.getContainerElement().classList;
       window.localStorage.setItem('cookbook-theme', applyTheme);
-      classList.add(applyTheme);
+      classList.replace(localstorage_cookbook_theme, applyTheme);
       this.className = applyTheme;
       
       this.darkTheme = false

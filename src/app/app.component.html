@@ -12,10 +12,10 @@
     <mat-menu #menu="matMenu">
       <button
         mat-menu-item
-        (click)="changeTheme('theme')"
-        [disabled]="disabledTheme('theme')"
+        (click)="changeTheme('indigo-palette')"
+        [disabled]="disabledTheme('indigo-palette')"
       >
-        Light
+        Indigo Palette
       </button>
       <button
         mat-menu-item
@@ -30,6 +30,13 @@
         [disabled]="disabledTheme('purple-green')"
       >
         Purple Green
+      </button>
+      <button
+        mat-menu-item
+        (click)="changeTheme('pink-bluegrey')"
+        [disabled]="disabledTheme('pink-bluegrey')"
+      >
+        Pink Bluegrey 
       </button>
     </mat-menu>
 
