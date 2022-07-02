@@ -11,11 +11,8 @@ interface Food {
 
 export enum Theme {
   'theme',
-  // 'theme-dark',
   'deep-purple-and-amber',
-  // 'deep-purple-and-amber-dark',
   'purple-green',
-  // 'purple-green-dark',
 }
 
 @Component({
@@ -32,13 +29,62 @@ export class AppComponent {
   toggleControl = new FormControl(false);
   darkTheme: boolean = false;
 
+  // matSelect
+  typeList: string[] = ['none', 'info', 'warn', 'success'];
+  type: 'success' | 'info' | 'warn' | 'none' = 'success';
+
+  foods: Food[] = [
+    {value: 'steak-0', viewValue: 'Steak'},
+    {value: 'pizza-1', viewValue: 'Pizza'},
+    {value: 'tacos-2', viewValue: 'Tacos'},
+  ];
+
+  constructor(
+    private dialog: MatDialog, 
+    private overlay: OverlayContainer
+  ) { }
+
+  ngOnInit(): void {
+    const classes = this.overlay.getContainerElement().classList;
+
+    // It is executed only once at root level to set the initial value of the theme
+    var localstorage_cookbook_theme = window.localStorage.getItem('cookbook-theme');
+    this.className = localstorage_cookbook_theme;
+    console.log('localstorage_cookbook_theme', localstorage_cookbook_theme);
+
+    if (localstorage_cookbook_theme && localstorage_cookbook_theme.endsWith('-dark')) {
+      this.darkTheme = true;
+    }
+  }
+
+  changeTheme(theme: string) {
+		const classList = this.overlay.getContainerElement().classList;
+
+    let suffix = '';
+    if (this.darkTheme) {
+      suffix = '-dark';
+    }
+    const applyTheme = theme + suffix;
+    
+    window.localStorage.setItem('cookbook-theme', applyTheme);
+    classList.add(applyTheme);
+    this.className = applyTheme;
+  }
+
+  showDialog(): void {
+    this.dialog.open(SimpleDialogComponent, {
+      width: '500px',
+    });
+  }
+
   setDarkTheme(value: boolean) {
     var localstorage_cookbook_theme = window.localStorage.getItem('cookbook-theme');
+    // set default theme
     if (!localstorage_cookbook_theme) {
       localstorage_cookbook_theme = 'theme';
     }
 
-    // daca valoarea este true, aplicam -dark in fata temei curente
+    // if toggle is true, we'll add '-dark' suffix on current theme
     if (value) {
       const suffix = '-dark';
       const applyTheme = localstorage_cookbook_theme + suffix;
@@ -71,66 +117,6 @@ export class AppComponent {
     currentThemeAddDarkTheme.push(currentTheme + '-dark');
     
     return currentThemeAddDarkTheme.includes(localstorage_cookbook_theme);
-  }
-
-  // matSelect
-  typeList: string[] = ['none', 'info', 'warn', 'success'];
-  type: 'success' | 'info' | 'warn' | 'none' = 'success';
-
-  foods: Food[] = [
-    {value: 'steak-0', viewValue: 'Steak'},
-    {value: 'pizza-1', viewValue: 'Pizza'},
-    {value: 'tacos-2', viewValue: 'Tacos'},
-  ];
-
-  constructor(
-    private dialog: MatDialog, 
-    private overlay: OverlayContainer
-  ) { }
-
-  ngOnInit(): void {
-    const classes = this.overlay.getContainerElement().classList;
-
-    // Se executa o singura data la nivel de root pentru a seta valoarea initiala a themei
-    var localstorage_cookbook_theme = window.localStorage.getItem('cookbook-theme');
-    this.className = localstorage_cookbook_theme;
-    console.log('localstorage_cookbook_theme', localstorage_cookbook_theme);
-
-    // TODO:
-    // const indexOfS = Object.values(Theme).indexOf(localstorage_cookbook_theme as unknown as Theme);
-    // console.log('indexOfS', indexOfS);
-
-    if (localstorage_cookbook_theme && localstorage_cookbook_theme.endsWith('-dark')) {
-      this.darkTheme = true;
-    }
-  }
-
-  // 
-  // deep-purple-and-amber
-  changeTheme(theme: string) {
-
-
-    const indexOfS = Object.values(Theme).indexOf(theme as unknown as Theme);
-		const classList = this.overlay.getContainerElement().classList;
-
-    let suffix = '';
-    if (this.darkTheme) {
-      console.log('👍', );
-      suffix = '-dark';
-    }
-    const applyTheme = theme + suffix;
-    
-    window.localStorage.setItem('cookbook-theme', applyTheme);
-    classList.add(applyTheme);
-    this.className = applyTheme;
-
-    console.log('🟢🟢🟢', applyTheme);
-  }
-
-  showDialog(): void {
-    this.dialog.open(SimpleDialogComponent, {
-      width: '500px',
-    });
   }
 
 }
